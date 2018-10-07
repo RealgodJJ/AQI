@@ -6,12 +6,31 @@
 """
 
 
+def cal_linear(iAqi_low, iAqi_high, bp_low, bp_high, cp):
+    iAqi = (iAqi_high - iAqi_low) * (cp - bp_low) / (bp_high - bp_low) + iAqi_low
+    return iAqi
+
+
 def cal_pm_iAqi(pm_value):
-    pass
+    iAqi = 0
+    if 0 <= pm_value < 35:
+        iAqi = cal_linear(0, 50, 0, 35, pm_value)
+    elif 35 <= pm_value < 75:
+        iAqi = cal_linear(50, 100, 35, 75, pm_value)
+    elif 75 <= pm_value < 115:
+        iAqi = cal_linear(100, 150, 75, 115, pm_value)
+    return iAqi
 
 
 def cal_co_iAqi(co_value):
-    pass
+    iAqi = 0
+    if 0 <= co_value < 2:
+        iAqi = cal_linear(0, 2, 0, 35, co_value)
+    elif 2 <= co_value < 4:
+        iAqi = cal_linear(2, 4, 35, 75, co_value)
+    elif 4 <= co_value < 14:
+        iAqi = cal_linear(4, 14, 75, 115, co_value)
+    return iAqi
 
 
 def cal_aqi(param_list):
