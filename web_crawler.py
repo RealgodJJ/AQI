@@ -1,8 +1,8 @@
 """
     author: RealgodJJ
-    function:
+    function: Web crawler of AQI
     version: 1.0
-    date:
+    date: 2018/10/9
 """
 import requests
 from xpinyin import Pinyin
