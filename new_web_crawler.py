@@ -4,8 +4,6 @@
     version: 1.0
     date: 2018/10/9
 """
-import json
-
 import requests
 from xpinyin import Pinyin
 from bs4 import BeautifulSoup
@@ -27,7 +25,6 @@ def get_city_aqi(city_pinyin):
         value = div_content.find("div", {"class": "value"}).text.strip()
         city_aqi_list.append({caption: value})
     return request.status_code, city_aqi_list
-
 
 def main():
     city = input("请输入城市：\n")
