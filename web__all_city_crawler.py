@@ -5,6 +5,7 @@
     date: 2018/10/10
 """
 import requests
+import csv
 from bs4 import BeautifulSoup
 
 
@@ -14,7 +15,7 @@ def get_city_aqi(city_pinyin):
     """
     url = "http://pm25.in/" + city_pinyin
     request = requests.get(url, timeout=30)
-    soup = BeautifulSoup(request.text, 'lxml')
+    soup = BeautifulSoup(request.text, "lxml")
     div_list = soup.find_all("div", {"class": "span1"})
 
     city_aqi_list = []
@@ -44,15 +45,30 @@ def get_all_city_aqi():
 
 
 def main():
+    header = ["City"]
     request_code, city_list = get_all_city_aqi()
     if request_code == 200:
-        for city in city_list:
-            r_code, city_aqi_list = get_city_aqi(city[1])
-            if r_code == 200:
-                print("{}:".format(city[0]))
+        # 显示表格抬头
+        r_code, city_aqi_list = get_city_aqi(city_list[0][1])
+        for city_aqi in city_aqi_list:
+            header.append(city_aqi[0])
+
+        print("一共有{}条记录\n".format(len(city_list)))
+        with open("china_city_aqi.csv", "w", encoding="utf-8", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow(header)
+            for num, city in enumerate(city_list):
+                r_code, city_aqi_list = get_city_aqi(city[1])
+                row = []
+                row += [city[0]]
                 for city_aqi in city_aqi_list:
-                    print("{}: {}".format(city_aqi[0], city_aqi[1]))
-                print("")
+                    row += [city_aqi[1]]
+                writer.writerow(row)
+                if (num + 1) % 10 == 0:
+                    print("已处理{}条记录......".format(num + 1))
+                    break
+                if num == len(city_list):
+                    print("\n处理完成！")
 
 
 if __name__ == '__main__':

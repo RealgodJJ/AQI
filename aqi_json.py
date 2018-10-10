@@ -10,8 +10,8 @@ import json
 def process_json_file(file_path):
     """
         解码json文件
-    :param file_path:
-    :return: 文件路径
+    :param file_path: 文件路径
+    :return:
     """
     file = open(file_path, mode="r", encoding="utf-8")
     city_list = json.load(file)
