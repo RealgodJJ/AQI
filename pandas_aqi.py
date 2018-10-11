@@ -24,9 +24,16 @@ def main():
     bottom10_cities.to_csv("bottom10_cities_aqi.csv", index=False)
 
     print("\n===============全国AQI统计===============")
-    print("AQI最大值：" + str(aqi_data["AQI"].max()))
-    print("AQI最小值：" + str(aqi_data["AQI"].min()))
-    print("AQI平均值：" + str(aqi_data["AQI"].mean()))
+    max = "AQI最大值：" + str(aqi_data["AQI"].max())
+    min = "AQI最小值：" + str(aqi_data["AQI"].min())
+    mean = "AQI平均值：" + str(aqi_data["AQI"].mean())
+    print(max)
+    print(min)
+    print(mean)
+    with open("china_city_aqi_statistics.txt", mode="w", encoding="utf-8", newline="") as file:
+        file.write(max + "\n")
+        file.write(min + "\n")
+        file.write(mean)
 
 
 if __name__ == '__main__':
