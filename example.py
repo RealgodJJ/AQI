@@ -9,6 +9,9 @@
 class Person:
     name = []
 
+    def __init__(self):
+        self.name = ["小红"]
+
 
 def main():
     p1 = Person()
@@ -17,6 +20,7 @@ def main():
     print(p1.name)
     print(p2.name)
     print(Person.name)
+
 
 if __name__ == '__main__':
     main()

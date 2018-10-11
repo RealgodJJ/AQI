@@ -66,8 +66,7 @@ def main():
                 writer.writerow(row)
                 if (num + 1) % 10 == 0:
                     print("已处理{}条记录......".format(num + 1))
-                    break
-                if num == len(city_list):
+                if num == len(city_list) - 1:
                     print("\n处理完成！")
 
 
